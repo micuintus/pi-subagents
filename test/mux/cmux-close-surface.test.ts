@@ -1,5 +1,11 @@
 import assert from "node:assert/strict";
-import { chmodSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+	chmodSync,
+	mkdtempSync,
+	readFileSync,
+	rmSync,
+	writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, it } from "node:test";
@@ -77,7 +83,9 @@ describe("cmux close-surface confirmation gate", async () => {
 	});
 
 	it("recognizes the confirmation gate in exec errors and plain strings", async () => {
-		const err = new Error("Command failed: cmux close-surface\nconfirmation_required: Surface has a running process; retry with force=true");
+		const err = new Error(
+			"Command failed: cmux close-surface\nconfirmation_required: Surface has a running process; retry with force=true",
+		);
 		assert.equal(isMuxConfirmationRequired(err), true);
 		assert.equal(isMuxConfirmationRequired(new Error("boom")), false);
 		assert.equal(isMuxConfirmationRequired("confirmation_required"), true);
